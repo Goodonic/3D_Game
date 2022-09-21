@@ -17,6 +17,7 @@ DELTA_ANGLE = FOV / NUM_RAYS
 DIST = NUM_RAYS / (2 * math.tan(HALF_FOV))
 PROJ_COEFF = 3 * DIST * TILE
 SCALE = WIDTH // NUM_RAYS
+
 #Настройки игрока
 player_pos = (HALF_WIDTH, HALF_HEIGHT)
 player_angle = 0

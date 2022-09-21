@@ -16,8 +16,8 @@ while True:
         if event.type == pygame.QUIT:
             exit()
     player.movement()
-    sc.fill(BLACK)
-
+    pygame.draw.rect(sc, BLUE, (0, 0, 1520, 380))
+    pygame.draw.rect(sc, DARKGRAY, (0, 380, 1520, 380))
     ray_casting(sc,player.pos, player.angle)
 
     # pygame.draw.circle(sc, GREEN,(int(player.x), int(player.y)), 12)
