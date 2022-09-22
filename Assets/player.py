@@ -18,19 +18,19 @@ class Player(pygame.sprite.Sprite):
           if keys[pygame.K_w]:
                self.x += player_speed * cos_a
                self.y += player_speed * sin_a
-               print('W')
+               #print('W')
           if keys[pygame.K_s]:
                self.x += -player_speed * cos_a
                self.y += -player_speed * sin_a
-               print('S')
+               #print('S')
           if keys[pygame.K_a]:
                self.x += player_speed * sin_a
                self.y += -player_speed * cos_a
-               print('A')
+               #print('A')
           if keys[pygame.K_d]:
                self.x += -player_speed * sin_a
                self.y += player_speed * cos_a
-               print('D')
+               #print('D')
           if keys[pygame.K_LEFT]:
                self.angle -= 0.02
           if keys[pygame.K_RIGHT]:
