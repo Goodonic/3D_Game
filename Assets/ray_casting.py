@@ -26,7 +26,8 @@ from player import Player
 
 def mapping(a, b):
     return (a // TILE) * TILE, (b // TILE) * TILE
-def ray_casting(sc, player_pos, player_angle, texture):
+
+def ray_casting(sc, player_pos, player_angle, textures):
     xo, yo = player_pos
     xm, ym = mapping(xo, yo)
     cur_angle = player_angle - HALF_FOV
@@ -39,7 +40,9 @@ def ray_casting(sc, player_pos, player_angle, texture):
         for i in range(0, WIDTH, TILE):
             depth_v = (x - xo) / cos_a
             yv = yo + depth_v * sin_a
-            if mapping(x + dx, yv) in world_map:
+            tile_v = mapping(x + dx, yv)
+            if tile_v in world_map:
+                texture_v = world_map[tile_v]
                 break
             x += dx * TILE
 
@@ -48,18 +51,20 @@ def ray_casting(sc, player_pos, player_angle, texture):
         for i in range(0, WIDTH, TILE):
             depth_h = (y - yo) / sin_a
             xh = xo + depth_h * cos_a
-            if mapping(xh, y + dy) in world_map:
+            tile_h = mapping(xh, y + dy)
+            if tile_h in world_map:
+                texture_h = world_map[tile_h]
                 break
             y += dy * TILE
 
         # Проекция
-        depth, offset = (depth_v, yv) if depth_v < depth_h else (depth_h, xh)
+        depth, offset, texture = (depth_v, yv, texture_v) if depth_v < depth_h else (depth_h, xh, texture_h)
         offset = int(offset) % TILE
         depth *= math.cos(player_angle - cur_angle)
         depth = max(depth, 0.00001)
         proj_height = min(int(PROJ_COEFF / depth), HEIGHT * 2)
 
-        wall_column = texture.subsurface(offset * TEXTURE_SCALE, 0, TEXTURE_SCALE, TEXTURE_HEIGHT)
+        wall_column = textures[texture].subsurface(offset * TEXTURE_SCALE, 0, TEXTURE_SCALE, TEXTURE_HEIGHT)
         wall_column = pygame.transform.scale(wall_column,(SCALE, proj_height))
         sc.blit(wall_column, (ray * SCALE,HALF_HEIGHT - proj_height // 2))
         cur_angle += DELTA_ANGLE
