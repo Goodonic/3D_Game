@@ -8,13 +8,13 @@ class Drawing:
         self.sc = sc
         self.sc_map = sc_map
         self.font = pygame.font.Font('Fonts/Button_Font/Elfboyclassic.ttf', 24)
-
+        self.texture = pygame.image.load('Sprites/wall.jpg').convert()
     def background(self):
         pygame.draw.rect(self.sc, BLUE, (0, 0, 1520, 380))
         pygame.draw.rect(self.sc, DARKGRAY, (0, 380, 1520, 380))
 
     def world(self, player_pos, player_angle):
-        ray_casting(self.sc, player_pos, player_angle)
+        ray_casting(self.sc, player_pos, player_angle, self.texture)
 
     def fps(self, clock):
         display_fps = str(int(clock.get_fps()))
