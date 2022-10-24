@@ -16,7 +16,7 @@ class Drawing:
         pygame.draw.rect(self.sc, DARKGRAY, (0, 380, 1520, 380))
 
     def world(self, player_pos, player_angle):
-        ray_casting(self.sc, player_pos, player_angle, self.texture)
+        ray_casting(self.sc, player_pos, player_angle, self.textures)
 
     def fps(self, clock):
         display_fps = str(int(clock.get_fps()))
