@@ -9,14 +9,18 @@ class Drawing:
         self.sc_map = sc_map
         self.font = pygame.font.Font('Fonts/Button_Font/Elfboyclassic.ttf', 24)
         self.textures = {'1':pygame.image.load('Sprites/wall.jpg').convert(),
-                         '2':pygame.image.load('Sprites/wall2.jpg').convert()
+                         '2':pygame.image.load('Sprites/Box/box.jpg').convert(),
                          }
+
     def background(self):
         pygame.draw.rect(self.sc, BLUE, (0, 0, 1520, 380))
         pygame.draw.rect(self.sc, DARKGRAY, (0, 380, 1520, 380))
 
-    def world(self, player_pos, player_angle):
-        ray_casting(self.sc, player_pos, player_angle, self.textures)
+    def world(self, world_objects):
+        for obj in sorted(world_objects, key=lambda  n: n[0], reverse=True):
+            if obj[0]:
+                _,object, object_pos = obj
+                self.sc.blit(object, object_pos)
 
     def fps(self, clock):
         display_fps = str(int(clock.get_fps()))
@@ -29,6 +33,12 @@ class Drawing:
         pygame.draw.line(self.sc_map, GREEN, (map_x, map_y), (map_x + 12 * math.cos(player.angle),
                                                  map_y + 12 * math.sin(player.angle)))
         pygame.draw.circle(self.sc_map, GREEN, (int(map_x), int(map_y)), 5)
-        for x, y in mini_map:
-            pygame.draw.rect(self.sc_map, GREEN, (x, y, MAP_TILE, MAP_TILE), 1)
+        for x, y, index in mini_map:
+
+            if index == '1':
+                pygame.draw.rect(self.sc_map, GREEN, (x, y, MAP_TILE, MAP_TILE), 1)
+            elif index == '2':
+                pygame.draw.rect(self.sc_map, RED, (x, y, MAP_TILE, MAP_TILE), 0)
+            elif index == '3':
+                pygame.draw.rect(self.sc_map, YELLOW, (x, y, MAP_TILE, MAP_TILE), 2)
         self.sc.blit(self.sc_map, MAP_POS)

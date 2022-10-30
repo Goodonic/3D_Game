@@ -16,17 +16,25 @@ HALF_FOV = FOV / 2
 NUM_RAYS = 300
 MAX_DEPTH = 1520
 DELTA_ANGLE = FOV / NUM_RAYS
-DIST = NUM_RAYS / (2 * math.tan(HALF_FOV))
-PROJ_COEFF = 5 * DIST * TILE
+DIST = NUM_RAYS / (3 * math.tan(HALF_FOV))
+PROJ_COEFF = 6 * DIST * TILE
 SCALE = WIDTH // NUM_RAYS
 
+# Настройка спрайтов
+DOUBLE_PI = 2 * math.pi
+CENTER_RAY = NUM_RAYS // 2 - 1
 # Настройки текстур (1520 x 1520)
-TEXTURE_WIDTH = 1520
-TEXTURE_HEIGHT = 1520
+TEXTURE_WIDTH = 1000
+TEXTURE_HEIGHT = 1000
 TEXTURE_SCALE = TEXTURE_WIDTH // TILE
 
+# Настройки препятствий
+BLOCK_WIDTH = 700
+BLOCK_HEIGHT = 700
+BLOCK_SCALE = TEXTURE_WIDTH // TILE
+
 # Настройки игрока
-player_pos = (HALF_WIDTH, HALF_HEIGHT)
+player_pos = (HALF_WIDTH + 25, HALF_HEIGHT)
 player_angle = 0
 player_speed = 2
 
@@ -43,3 +51,4 @@ GREEN = (0, 220, 0)
 BLUE = (0, 0, 220)
 DARKGRAY = (110, 110, 110)
 PURPLE = (120, 0, 120)
+YELLOW = (255, 255, 102)
