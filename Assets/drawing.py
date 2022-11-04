@@ -9,7 +9,7 @@ class Drawing:
         self.sc_map = sc_map
         self.font = pygame.font.Font('Fonts/Button_Font/Elfboyclassic.ttf', 24)
         self.textures = {'1':pygame.image.load('Sprites/wall.jpg').convert(),
-                         '2':pygame.image.load('Sprites/Box/box.jpg').convert(),
+                         '2':pygame.image.load('Sprites/b/box.jpg').convert(),
                          }
 
     def background(self):
@@ -19,7 +19,7 @@ class Drawing:
     def world(self, world_objects):
         for obj in sorted(world_objects, key=lambda  n: n[0], reverse=True):
             if obj[0]:
-                _,object, object_pos = obj
+                _, object, object_pos = obj
                 self.sc.blit(object, object_pos)
 
     def fps(self, clock):

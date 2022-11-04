@@ -23,6 +23,7 @@ SCALE = WIDTH // NUM_RAYS
 # Настройка спрайтов
 DOUBLE_PI = 2 * math.pi
 CENTER_RAY = NUM_RAYS // 2 - 1
+FAKE_RAYS = 100
 # Настройки текстур (1520 x 1520)
 TEXTURE_WIDTH = 1000
 TEXTURE_HEIGHT = 1000
