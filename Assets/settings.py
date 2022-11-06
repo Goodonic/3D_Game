@@ -44,6 +44,9 @@ MAP_SCALE = 5
 MAP_TILE = TILE // MAP_SCALE
 MAP_POS = (0, HEIGHT - HEIGHT // MAP_SCALE)
 
+# Настройки мыши
+SENSETIVITY = 0.0018
+
 # Цвета
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

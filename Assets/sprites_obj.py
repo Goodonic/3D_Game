@@ -16,7 +16,10 @@ class SpriteObject:
     def __init__(self, object, static, pos, shift, scale):
         self.object = object
         self.static = static
-        self.pos = self.x, self.y = pos[0] * TILE, pos[1] * TILE
+        self.blocked = True
+        self.side = 27
+        self.x, self.y = pos[0] * TILE, pos[1] * TILE
+        self.pos = self.x - self.side // 2, self.y - self.side // 2
         self.shift = shift
         self.scale = scale
 
@@ -43,7 +46,7 @@ class SpriteObject:
 
         fake_ray = current_ray + FAKE_RAYS
         if 0 <= fake_ray <= NUM_RAYS - 1 + 2 * FAKE_RAYS and distance_to_sprites < fake_walls[fake_ray][0]:
-            proj_height = int(PROJ_COEFF / distance_to_sprites * self.scale)
+            proj_height = min(int(PROJ_COEFF / distance_to_sprites * self.scale), HEIGHT * 3)
             half_proj_haight = proj_height // 2
             shift = half_proj_haight * self.shift
 

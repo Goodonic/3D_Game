@@ -7,10 +7,11 @@ from drawing import Drawing
 
 pygame.init()
 sc = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.mouse.set_visible(False)
 sc_map = pygame.Surface((WIDTH // MAP_SCALE, HEIGHT // MAP_SCALE))
 sprites = Sprites()
 clock = pygame.time.Clock()
-player = Player()
+player = Player(sprites)
 drawing = Drawing(sc, sc_map)
 
 while True:

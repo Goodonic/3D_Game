@@ -4,27 +4,37 @@ import math
 from map import collision_walls
 
 class Player(pygame.sprite.Sprite):
-     def __init__(self):
+     def __init__(self, sprites):
           self.x, self.y = player_pos
+          self.sprites = sprites
           self.angle = player_angle
+          self.sensitivity = SENSETIVITY
           # Параметры коллизий
           self.side = 27
           self.rect = pygame.Rect(*player_pos, self.side, self.side)
+          self.collision_sprites = [pygame.Rect(*obj.pos, obj.side, obj.side) for obj in self.sprites.list_of_objects if obj.blocked]
+          self.collision_list = collision_walls + self.collision_sprites
 
 
      @property
      def pos(self):
           return (self.x, self.y)
 
+     def movement(self):
+          self.keys_control()
+          self.mouse_control()
+          self.angle %= DOUBLE_PI
+
+
      def detect_collision(self, dx, dy):
           next_rect = self.rect.copy()
           next_rect.move_ip(dx, dy)
-          hit_indexes = next_rect.collidelistall(collision_walls)
+          hit_indexes = next_rect.collidelistall(self.collision_list)
 
           if len(hit_indexes):
                delta_x, delta_y = 0, 0
                for hit_index in hit_indexes:
-                    hit_rect = collision_walls[hit_index]
+                    hit_rect = self.collision_list[hit_index]
                     if dx > 0:
                          delta_x += next_rect.right - hit_rect.left
                     else:
@@ -41,11 +51,14 @@ class Player(pygame.sprite.Sprite):
                     dx = 0
           self.x += dx
           self.y += dy
-     def movement(self):
+
+     def keys_control(self):
           sin_a = math.sin(self.angle)
           cos_a = math.cos(self.angle)
           keys = pygame.key.get_pressed()
           self.rect.center = self.x, self.y
+          if keys[pygame.K_ESCAPE]:
+               exit()
           if keys[pygame.K_w]:
                dx = player_speed * cos_a
                dy = player_speed * sin_a
@@ -66,4 +79,9 @@ class Player(pygame.sprite.Sprite):
                self.angle -= 0.03
           if keys[pygame.K_RIGHT]:
                self.angle += 0.03
-          self.angle %= DOUBLE_PI
+          #self.angle %= DOUBLE_PI
+     def mouse_control(self):
+          if pygame.mouse.get_focused():
+               difference = pygame.mouse.get_pos()[0] - HALF_WIDTH
+               pygame.mouse.set_pos(HALF_WIDTH, HALF_HEIGHT)
+               self.angle += difference * self.sensitivity
