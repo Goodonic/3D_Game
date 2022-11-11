@@ -1,6 +1,7 @@
 import math
 import pygame
 from settings import *
+import time
 
 class Sprites:
     def __init__(self):
@@ -8,8 +9,8 @@ class Sprites:
             'box': [pygame.image.load(f'Sprites/Box/{i}.png').convert_alpha() for i in range(8)]
         }
         self.list_of_objects = [
-            SpriteObject(self.sprite_types['box'], False, (9.5, 7.5), 0.1, 2),
-            SpriteObject(self.sprite_types['box'], False, (9.0, 3.0), 0.1, 2)
+            SpriteObject(self.sprite_types['box'], False, (9, 8), 0.1, 2),
+            SpriteObject(self.sprite_types['box'], False, (9, 3), 0.1, 2)
         ]
 
 class SpriteObject:
@@ -18,8 +19,9 @@ class SpriteObject:
         self.static = static
         self.blocked = True
         self.side = 27
-        self.x, self.y = pos[0] * TILE, pos[1] * TILE
-        self.pos = self.x - self.side // 2, self.y - self.side // 2
+        self.x, self.y = (pos[0] - 0.5) * TILE, (pos[1] - 0.5) * TILE
+        self.mx, self.my = (pos[0] - 1) * MAP_TILE, (pos[1] - 1) * MAP_TILE
+        self.pos = [self.x - self.side // 2, self.y - self.side // 2]
         self.shift = shift
         self.scale = scale
 
@@ -65,3 +67,15 @@ class SpriteObject:
             return (distance_to_sprites, sprite, sprite_pos)
         else:
             return (False, )
+
+    def sprite_movement(self, player):
+        dx, dy = self.x - player.x, self.y - player.y
+        distance_to_sprites = math.sqrt(dx ** 2 + dy ** 2)
+        if player.keys_control() == True and distance_to_sprites <= 100:
+            # TODO Сделать логику передвижения спрайта отностильно игрока
+            self.x -= TILE
+            self.mx -= MAP_TILE
+            self.pos[0] = self.x - self.side // 2
+            time.sleep(0.2)
+            print("I'm working!")
+            print(distance_to_sprites, dx, dy)

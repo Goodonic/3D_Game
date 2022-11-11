@@ -2,7 +2,7 @@ from settings import *
 import pygame
 from ray_casting import ray_casting
 from map import world_map, mini_map
-
+from sprites_obj import *
 class Drawing:
     def __init__(self, sc, sc_map):
         self.sc = sc
@@ -17,7 +17,7 @@ class Drawing:
         pygame.draw.rect(self.sc, DARKGRAY, (0, 380, 1520, 380))
 
     def world(self, world_objects):
-        for obj in sorted(world_objects, key=lambda  n: n[0], reverse=True):
+        for obj in sorted(world_objects, key=lambda n: n[0], reverse=True):
             if obj[0]:
                 _, object, object_pos = obj
                 self.sc.blit(object, object_pos)
@@ -27,12 +27,14 @@ class Drawing:
         render = self.font.render(display_fps, 0, WHITE)
         self.sc.blit(render, FPS_POS)
 
-    def minimap(self, player):
+    def minimap(self, player, sprites):
         self.sc_map.fill(BLACK)
         map_x, map_y = player.x // MAP_SCALE, player.y // MAP_SCALE
-        pygame.draw.line(self.sc_map, GREEN, (map_x, map_y), (map_x + 12 * math.cos(player.angle),
-                                                 map_y + 12 * math.sin(player.angle)))
+        [pygame.draw.rect(self.sc_map, RED, (obj.mx, obj.my, MAP_TILE, MAP_TILE)) for obj in sprites.list_of_objects]
+        pygame.draw.line(self.sc_map, GREEN, (map_x, map_y), (map_x + 12 * math.cos(player.angle), map_y + 12 * math.sin(player.angle)))
         pygame.draw.circle(self.sc_map, GREEN, (int(map_x), int(map_y)), 5)
+
+
         for x, y, index in mini_map:
 
             if index == '1':

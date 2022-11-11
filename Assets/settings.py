@@ -37,7 +37,7 @@ BLOCK_SCALE = TEXTURE_WIDTH // TILE
 # Настройки игрока
 player_pos = (HALF_WIDTH + 25, HALF_HEIGHT)
 player_angle = 0
-player_speed = 2
+player_speed = 1.25
 
 # Настройки миникарты
 MAP_SCALE = 5
@@ -45,7 +45,7 @@ MAP_TILE = TILE // MAP_SCALE
 MAP_POS = (0, HEIGHT - HEIGHT // MAP_SCALE)
 
 # Настройки мыши
-SENSETIVITY = 0.0018
+SENSETIVITY = 0.0009
 
 # Цвета
 WHITE = (255, 255, 255)

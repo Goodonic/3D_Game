@@ -79,7 +79,8 @@ class Player(pygame.sprite.Sprite):
                self.angle -= 0.03
           if keys[pygame.K_RIGHT]:
                self.angle += 0.03
-          #self.angle %= DOUBLE_PI
+          if keys[pygame.K_SPACE]:
+               return True
      def mouse_control(self):
           if pygame.mouse.get_focused():
                difference = pygame.mouse.get_pos()[0] - HALF_WIDTH

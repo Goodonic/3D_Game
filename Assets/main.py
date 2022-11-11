@@ -21,8 +21,9 @@ while True:
     player.movement()
     drawing.background()
     walls = ray_casting(player, drawing.textures)
-    drawing.world(walls + [obg.object_locate(player, walls) for obg in sprites.list_of_objects])
-    drawing.minimap(player)
+    drawing.world(walls + [obj.object_locate(player, walls) for obj in sprites.list_of_objects])
+    [obj.sprite_movement(player) for obj in sprites.list_of_objects]
+    drawing.minimap(player, sprites)
     drawing.fps(clock)
 
     pygame.display.flip()

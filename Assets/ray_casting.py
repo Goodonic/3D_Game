@@ -38,6 +38,9 @@ def ray_casting(player, textures):
                 break
             y += dy * TILE
 
+        # Пересечение со спрайтом
+
+
         # Проекция
         depth, offset, texture = (depth_v, yv, texture_v) if depth_v < depth_h else (depth_h, xh, texture_h)
         offset = int(offset) % TILE
