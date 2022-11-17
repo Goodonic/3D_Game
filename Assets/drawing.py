@@ -2,14 +2,14 @@ from settings import *
 import pygame
 from ray_casting import ray_casting
 from map import world_map, mini_map
-from sprites_obj import *
+
 class Drawing:
     def __init__(self, sc, sc_map):
         self.sc = sc
         self.sc_map = sc_map
         self.font = pygame.font.Font('Fonts/Button_Font/Elfboyclassic.ttf', 24)
         self.textures = {'1':pygame.image.load('Sprites/wall.jpg').convert(),
-                         '2':pygame.image.load('Sprites/b/box.jpg').convert(),
+                         '2':pygame.image.load('Sprites/wall2.jpg').convert(),
                          }
 
     def background(self):
@@ -27,6 +27,11 @@ class Drawing:
         render = self.font.render(display_fps, 0, WHITE)
         self.sc.blit(render, FPS_POS)
 
+    def couner(self, c):
+        display_count = str(c)
+        render = self.font.render(display_count, 0, RED)
+        self.sc.blit(render, COUNT_POS)
+
     def minimap(self, player, sprites):
         self.sc_map.fill(BLACK)
         map_x, map_y = player.x // MAP_SCALE, player.y // MAP_SCALE
@@ -40,7 +45,8 @@ class Drawing:
             if index == '1':
                 pygame.draw.rect(self.sc_map, GREEN, (x, y, MAP_TILE, MAP_TILE), 1)
             elif index == '2':
-                pygame.draw.rect(self.sc_map, RED, (x, y, MAP_TILE, MAP_TILE), 0)
+                pygame.draw.rect(self.sc_map, GREEN, (x, y, MAP_TILE, MAP_TILE), 1)
             elif index == '3':
                 pygame.draw.rect(self.sc_map, YELLOW, (x, y, MAP_TILE, MAP_TILE), 2)
         self.sc.blit(self.sc_map, MAP_POS)
+

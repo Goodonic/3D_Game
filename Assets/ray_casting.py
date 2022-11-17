@@ -39,6 +39,7 @@ def ray_casting(player, textures):
             y += dy * TILE
 
         # Пересечение со спрайтом
+        # Горизонталь TODO сделать также как рейкастинг только проверять пересечение с ректом спрайта
 
 
         # Проекция
@@ -53,4 +54,5 @@ def ray_casting(player, textures):
         wall_pos = ray * SCALE,HALF_HEIGHT - proj_height // 2
         walls.append((depth, wall_column, wall_pos))
         cur_angle += DELTA_ANGLE
+        
     return walls
