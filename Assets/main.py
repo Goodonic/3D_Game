@@ -32,6 +32,10 @@ while True:
     drawing.fps(clock)
     count_res = count - Win(win_map, sprites_pos)
     drawing.counter(count_res)
+    # Перезагрузка
+    if pygame.key.get_pressed()[pygame.K_r]:
+        player.__init__(sprites)
+        sprites.__init__()
     if count_res == 0:
         WinDisplay(sc, WIN_TEXT_POS, WIN_FONT)
 
