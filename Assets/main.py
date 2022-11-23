@@ -4,8 +4,8 @@ from player import Player
 from ray_casting import ray_casting
 from sprites_obj import *
 from drawing import Drawing
-from collections import Counter
 from map import win_map
+from win import Win, WinDisplay
 pygame.init()
 sc = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.mouse.set_visible(False)
@@ -28,17 +28,12 @@ while True:
     drawing.world(walls + [obj.object_locate(player, walls) for obj in sprites.list_of_objects])
     [obj.sprite_movement(player) for obj in sprites.list_of_objects]
     sprites_pos = [tuple(obj.mpos) for obj in sprites.list_of_objects]
-    #print(Counter(sprites_pos + win_map))
-    #sprite_counter = number_of_sprites - Counter(sprites_pos + win_map)
-    for key in Counter(sprites_pos + win_map):
-        c = 1
-        if Counter(sprites_pos + win_map)[key] > 1:
-            count = number_of_sprites - c
-            c += 1
-            #print(Counter(sprites_pos + win_map), sprites_pos)
     drawing.minimap(player, sprites)
     drawing.fps(clock)
-    drawing.couner(count)
+    count_res = count - Win(win_map, sprites_pos)
+    drawing.counter(count_res)
+    if count_res == 0:
+        WinDisplay(sc, WIN_TEXT_POS, WIN_FONT)
 
 
     pygame.display.flip()

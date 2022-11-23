@@ -1,6 +1,6 @@
 import math
 import pygame
-
+pygame.init()
 # Настройки игры
 WIDTH = 1520
 HEIGHT = 760
@@ -49,6 +49,9 @@ MAP_POS = (0, HEIGHT - HEIGHT // MAP_SCALE)
 # Настройки мыши
 SENSETIVITY = 0.0009
 
+# Победный экран
+WIN_TEXT_POS = (HALF_WIDTH - 100, HALF_HEIGHT - 100)
+WIN_FONT = pygame.font.Font('Fonts/Button_Font/Elfboyclassic.ttf', 96)
 # Цвета
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

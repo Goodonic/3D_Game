@@ -27,7 +27,7 @@ class Drawing:
         render = self.font.render(display_fps, 0, WHITE)
         self.sc.blit(render, FPS_POS)
 
-    def couner(self, c):
+    def counter(self, c):
         display_count = str(c)
         render = self.font.render(display_count, 0, RED)
         self.sc.blit(render, COUNT_POS)

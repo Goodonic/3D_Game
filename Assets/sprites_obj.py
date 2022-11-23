@@ -81,8 +81,8 @@ class SpriteObject:
     def sprite_movement(self, player):
         dx, dy = self.x - player.x, self.y - player.y
         distance_to_sprites = math.sqrt(dx ** 2 + dy ** 2)
-        if player.keys_control() == True and distance_to_sprites <= 100:
-            # TODO Сделать логику передвижения спрайта отностильно игрока ИСПРАВЬ!
+        if player.keys_control() and distance_to_sprites <= 100:
+            # TODO Сделать логика передвижения спрайта отностильно игрока МОЖНО УЛИЧШИТЬ
             #print(player.x, player.y)
             #print(self.x, self.y)
             # Сверху
