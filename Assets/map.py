@@ -31,5 +31,5 @@ for j, row in enumerate(text_map):
                 collision_walls.append(pygame.Rect(i * TILE, j * TILE, TILE, TILE))
             elif char == '3':
                 mini_map.add((i * MAP_TILE, j * MAP_TILE, '3'))
-                win_map.append((i+1, j))
-print(win_map) #b TODO win_map
+                win_map.append((i+1, j+1))
+print(win_map)

@@ -81,12 +81,12 @@ class SpriteObject:
     def sprite_movement(self, player):
         dx, dy = self.x - player.x, self.y - player.y
         distance_to_sprites = math.sqrt(dx ** 2 + dy ** 2)
+        #if player.keys_control():
+            #print(theta, gamma, player.angle)
         if player.keys_control() and distance_to_sprites <= 100:
             # TODO Сделать логика передвижения спрайта отностильно игрока МОЖНО УЛИЧШИТЬ
-            #print(player.x, player.y)
-            #print(self.x, self.y)
             # Сверху
-            if player.y <= self.y and self.x + TILE-20 >= player.x >= self.x-20:
+            if player.y <= self.y and self.x + TILE-20 >= player.x >= self.x-20 and 0.6 < player.angle < 2.3:
                 self.y += TILE
                 self.my += MAP_TILE
                 self.mpos[1] += 1
@@ -94,7 +94,7 @@ class SpriteObject:
                 self.collision_sprites_update(player)
                 time.sleep(0.2)
             # Снизу
-            elif player.y >= self.y and self.x + TILE-20 > player.x >= self.x-20:
+            elif player.y >= self.y and self.x + TILE-20 > player.x >= self.x-20 and 4 < player.angle < 5.4:
                 self.y -= TILE
                 self.my -= MAP_TILE
                 self.mpos[1] -= 1
@@ -102,16 +102,16 @@ class SpriteObject:
                 self.collision_sprites_update(player)
                 time.sleep(0.2)
             # Слево
-            elif player.x <= self.x and self.y + TILE-20 > player.y >= self.y-20:
+            elif player.x <= self.x and self.y + TILE-20 > player.y >= self.y-20 and (5.4 < player.angle or player.angle < 0.6):
                 self.x += TILE
                 self.mx += MAP_TILE
                 self.mpos[0] += 1
-                print(self.mpos)
+                #print(self.mpos)
                 self.pos[0] += TILE
                 self.collision_sprites_update(player)
                 time.sleep(0.2)
             # Справо
-            elif player.x >= self.x and self.y + TILE-20 > player.y >= self.y-20:
+            elif player.x >= self.x and self.y + TILE-20 > player.y >= self.y-20 and 2.3 < player.angle < 4:
                 self.x -= TILE
                 self.mx -= MAP_TILE
                 self.mpos[0] -= 1

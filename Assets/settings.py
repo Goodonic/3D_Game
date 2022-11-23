@@ -38,7 +38,7 @@ BLOCK_SCALE = TEXTURE_WIDTH // TILE
 
 # Настройки игрока
 player_pos = (11 * TILE + TILE / 2, 9 * TILE + TILE / 2)
-player_angle = 0
+player_angle = -90
 player_speed = 1.25 / 2
 
 # Настройки миникарты

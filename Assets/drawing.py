@@ -7,7 +7,7 @@ class Drawing:
     def __init__(self, sc, sc_map):
         self.sc = sc
         self.sc_map = sc_map
-        self.font = pygame.font.Font('Fonts/Button_Font/Elfboyclassic.ttf', 24)
+        self.font = pygame.font.Font('Fonts/Button_Font/Elfboyclassic.ttf', 48)
         self.textures = {'1':pygame.image.load('Sprites/wall.jpg').convert(),
                          '2':pygame.image.load('Sprites/wall2.jpg').convert(),
                          }
