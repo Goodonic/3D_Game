@@ -6,8 +6,13 @@ from sprites_obj import *
 from drawing import Drawing
 from map import win_map
 from win import Win, WinDisplay
+from menu import Menu
+from help import Help
 pygame.init()
 sc = pygame.display.set_mode((WIDTH, HEIGHT))
+# Меню
+Menu(sc, WIN_TEXT_POS, WIN_FONT)
+
 pygame.mouse.set_visible(False)
 sc_map = pygame.Surface((WIDTH // MAP_SCALE, HEIGHT // MAP_SCALE))
 sprites = Sprites()
@@ -16,6 +21,7 @@ player = Player(sprites)
 drawing = Drawing(sc, sc_map)
 number_of_sprites = len(sprites.list_of_objects)
 count = len(sprites.list_of_objects)
+
 
 
 while True:
@@ -28,6 +34,7 @@ while True:
     drawing.world(walls + [obj.object_locate(player, walls) for obj in sprites.list_of_objects])
     [obj.sprite_movement(player) for obj in sprites.list_of_objects]
     sprites_pos = [tuple(obj.mpos) for obj in sprites.list_of_objects]
+
     drawing.minimap(player, sprites)
     drawing.fps(clock)
     count_res = count - Win(win_map, sprites_pos)
@@ -36,6 +43,10 @@ while True:
     if pygame.key.get_pressed()[pygame.K_r]:
         player.__init__(sprites)
         sprites.__init__()
+    # Помощь
+    if pygame.key.get_pressed()[pygame.K_F1]:
+        Help(sc, WIN_TEXT_POS, WIN_FONT)
+    # Выигрыш
     if count_res == 0:
         WinDisplay(sc, WIN_TEXT_POS, WIN_FONT)
 
