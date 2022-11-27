@@ -32,7 +32,7 @@ while True:
     drawing.background()
     walls = ray_casting(player, drawing.textures)
     drawing.world(walls + [obj.object_locate(player, walls) for obj in sprites.list_of_objects])
-    [obj.sprite_movement(player) for obj in sprites.list_of_objects]
+    [obj.sprite_movement(player, sprites) for obj in sprites.list_of_objects]
     sprites_pos = [tuple(obj.mpos) for obj in sprites.list_of_objects]
 
     drawing.minimap(player, sprites)
