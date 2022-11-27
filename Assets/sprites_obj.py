@@ -105,22 +105,39 @@ class SpriteObject:
             return True
 
 
-    # def walls_collision(self, side):
-    #     if side == 'top':
-    #
-    #     elif side == 'down':
-    #     elif side == 'left':
-    #     elif side == 'right':
-    #     else:
-    #         return True
-    def sprite_movement(self, player, spriteList):
+    def walls_collision(self, side, wallList):
+        print(wallList)
+        print((self.mpos[0], self.mpos[1] + 1))
+        if side == 'top':
+            if (self.mpos[0], self.mpos[1] + 1) in wallList:
+                return False
+            else:
+                return True
+        elif side == 'down':
+            if (self.mpos[0], self.mpos[1] - 1) in wallList:
+                return False
+            else:
+                return True
+        elif side == 'left':
+            if (self.mpos[0] + 1, self.mpos[1]) in wallList:
+                return False
+            else:
+                return True
+        elif side == 'right':
+            if (self.mpos[0] - 1, self.mpos[1]) in wallList:
+                return False
+            else:
+                return True
+        else:
+            return True
+    def sprite_movement(self, player, spriteList, wallList):
         dx, dy = self.x - player.x, self.y - player.y
         distance_to_sprites = math.sqrt(dx ** 2 + dy ** 2)
 
         if player.keys_control() and distance_to_sprites <= 100:
             # TODO Доделать логика передвижения спрайта отностильно игрока МОЖНО УЛИЧШИТЬ
             # Сверху
-            if player.y <= self.y and self.x + TILE-20 >= player.x >= self.x-20 and 0.6 < player.angle < 2.3 and self.box_collision('top', spriteList):
+            if player.y <= self.y and self.x + TILE-20 >= player.x >= self.x-20 and 0.6 < player.angle < 2.3 and self.box_collision('top', spriteList) and self.walls_collision('top', wallList):
                 self.y += TILE
                 self.my += MAP_TILE
                 self.mpos[1] += 1
@@ -128,7 +145,7 @@ class SpriteObject:
                 self.collision_sprites_update(player)
                 time.sleep(0.2)
             # Снизу
-            elif player.y >= self.y and self.x + TILE-20 > player.x >= self.x-20 and 4 < player.angle < 5.4 and self.box_collision('down', spriteList):
+            elif player.y >= self.y and self.x + TILE-20 > player.x >= self.x-20 and 4 < player.angle < 5.4 and self.box_collision('down', spriteList) and self.walls_collision('down', wallList):
                 self.y -= TILE
                 self.my -= MAP_TILE
                 self.mpos[1] -= 1
@@ -136,7 +153,7 @@ class SpriteObject:
                 self.collision_sprites_update(player)
                 time.sleep(0.2)
             # Слево
-            elif player.x <= self.x and self.y + TILE-20 > player.y >= self.y-20 and (5.4 < player.angle or player.angle < 0.6) and self.box_collision('left', spriteList):
+            elif player.x <= self.x and self.y + TILE-20 > player.y >= self.y-20 and (5.4 < player.angle or player.angle < 0.6) and self.box_collision('left', spriteList) and self.walls_collision('left', wallList):
                 self.x += TILE
                 self.mx += MAP_TILE
                 self.mpos[0] += 1
@@ -145,7 +162,7 @@ class SpriteObject:
                 self.collision_sprites_update(player)
                 time.sleep(0.2)
             # Справо
-            elif player.x >= self.x and self.y + TILE-20 > player.y >= self.y-20 and 2.3 < player.angle < 4 and self.box_collision('right', spriteList):
+            elif player.x >= self.x and self.y + TILE-20 > player.y >= self.y-20 and 2.3 < player.angle < 4 and self.box_collision('right', spriteList) and self.walls_collision('right', wallList):
                 self.x -= TILE
                 self.mx -= MAP_TILE
                 self.mpos[0] -= 1
