@@ -9,10 +9,12 @@ from map import collision_walls_list_for_sprites as collision_walls
 from win import Win, WinDisplay
 from menu import Menu
 from help import Help
+pygame.mixer.pre_init(44100, -16, 1, 512)
 pygame.init()
 sc = pygame.display.set_mode((WIDTH, HEIGHT))
-# Меню
-Menu(sc, WIN_TEXT_POS, WIN_FONT)
+pygame.mixer.music.load("Sounds/music.mp3")
+pygame.mixer.music.play(-1)
+Menu(sc, TEXT_POS, FONT)
 
 pygame.mouse.set_visible(False)
 sc_map = pygame.Surface((WIDTH // MAP_SCALE, HEIGHT // MAP_SCALE))
@@ -40,16 +42,19 @@ while True:
     drawing.fps(clock)
     count_res = count - Win(win_map, sprites_pos)
     drawing.counter(count_res)
+
     # Перезагрузка
     if pygame.key.get_pressed()[pygame.K_r]:
         player.__init__(sprites)
         sprites.__init__()
+
     # Помощь
     if pygame.key.get_pressed()[pygame.K_F1]:
-        Help(sc, WIN_TEXT_POS, WIN_FONT)
+        Help(sc, HELP_TEXT_POS, HELP_FONT)
+
     # Выигрыш
     if count_res == 0:
-        WinDisplay(sc, WIN_TEXT_POS, WIN_FONT)
+        WinDisplay(sc, TEXT_POS, FONT)
 
 
     pygame.display.flip()

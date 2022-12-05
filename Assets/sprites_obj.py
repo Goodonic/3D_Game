@@ -30,7 +30,8 @@ class SpriteObject:
         self.mpos = list(pos)
         self.shift = shift
         self.scale = scale
-
+        self.movingBox = pygame.mixer.Sound("Sounds/movingBox.ogg")
+        self.boxPunch = pygame.mixer.Sound("Sounds/boxPunch.ogg")
         if not static:
             self.spite_angles = [frozenset(range(i, i+45)) for i in range(0, 360, 45)]
             self.spite_position = {angle: pos for angle, pos in zip(self.spite_angles, self.object)}
@@ -83,21 +84,29 @@ class SpriteObject:
         # print([tuple(obj.mpos) for obj in spriteList.list_of_objects])
         if side == 'top':
             if (self.mpos[0], self.mpos[1] + 1) in [tuple(obj.mpos) for obj in spriteList.list_of_objects]:
+                self.boxPunch.play()
+                time.sleep(0.15)
                 return False
             else:
                 return True
         elif side == 'down':
             if (self.mpos[0], self.mpos[1] - 1) in [tuple(obj.mpos) for obj in spriteList.list_of_objects]:
+                self.boxPunch.play()
+                time.sleep(0.15)
                 return False
             else:
                 return True
         elif side == 'left':
             if (self.mpos[0] + 1, self.mpos[1]) in [tuple(obj.mpos) for obj in spriteList.list_of_objects]:
+                self.boxPunch.play()
+                time.sleep(0.15)
                 return False
             else:
                 return True
         elif side == 'right':
             if (self.mpos[0] - 1, self.mpos[1]) in [tuple(obj.mpos) for obj in spriteList.list_of_objects]:
+                self.boxPunch.play()
+                time.sleep(0.15)
                 return False
             else:
                 return True
@@ -106,25 +115,32 @@ class SpriteObject:
 
 
     def walls_collision(self, side, wallList):
-        print(wallList)
-        print((self.mpos[0], self.mpos[1] + 1))
+        boxPunch = pygame.mixer.Sound("Sounds/boxPunch.ogg")
         if side == 'top':
             if (self.mpos[0], self.mpos[1] + 1) in wallList:
+                self.boxPunch.play()
+                time.sleep(0.15)
                 return False
             else:
                 return True
         elif side == 'down':
             if (self.mpos[0], self.mpos[1] - 1) in wallList:
+                self.boxPunch.play()
+                time.sleep(0.15)
                 return False
             else:
                 return True
         elif side == 'left':
             if (self.mpos[0] + 1, self.mpos[1]) in wallList:
+                self.boxPunch.play()
+                time.sleep(0.15)
                 return False
             else:
                 return True
         elif side == 'right':
             if (self.mpos[0] - 1, self.mpos[1]) in wallList:
+                self.boxPunch.play()
+                time.sleep(0.15)
                 return False
             else:
                 return True
@@ -133,9 +149,8 @@ class SpriteObject:
     def sprite_movement(self, player, spriteList, wallList):
         dx, dy = self.x - player.x, self.y - player.y
         distance_to_sprites = math.sqrt(dx ** 2 + dy ** 2)
-
+        movingBox = pygame.mixer.Sound("Sounds/movingBox.ogg")
         if player.keys_control() and distance_to_sprites <= 100:
-            # TODO Доделать логика передвижения спрайта отностильно игрока МОЖНО УЛИЧШИТЬ
             # Сверху
             if player.y <= self.y and self.x + TILE-20 >= player.x >= self.x-20 and 0.6 < player.angle < 2.3 and self.box_collision('top', spriteList) and self.walls_collision('top', wallList):
                 self.y += TILE
@@ -143,7 +158,8 @@ class SpriteObject:
                 self.mpos[1] += 1
                 self.pos[1] += TILE
                 self.collision_sprites_update(player)
-                time.sleep(0.2)
+                self.movingBox.play()
+                time.sleep(0.1)
             # Снизу
             elif player.y >= self.y and self.x + TILE-20 > player.x >= self.x-20 and 4 < player.angle < 5.4 and self.box_collision('down', spriteList) and self.walls_collision('down', wallList):
                 self.y -= TILE
@@ -151,7 +167,8 @@ class SpriteObject:
                 self.mpos[1] -= 1
                 self.pos[1] -= TILE
                 self.collision_sprites_update(player)
-                time.sleep(0.2)
+                self.movingBox.play()
+                time.sleep(0.1)
             # Слево
             elif player.x <= self.x and self.y + TILE-20 > player.y >= self.y-20 and (5.4 < player.angle or player.angle < 0.6) and self.box_collision('left', spriteList) and self.walls_collision('left', wallList):
                 self.x += TILE
@@ -160,7 +177,8 @@ class SpriteObject:
                 #print(self.mpos)
                 self.pos[0] += TILE
                 self.collision_sprites_update(player)
-                time.sleep(0.2)
+                self.movingBox.play()
+                time.sleep(0.1)
             # Справо
             elif player.x >= self.x and self.y + TILE-20 > player.y >= self.y-20 and 2.3 < player.angle < 4 and self.box_collision('right', spriteList) and self.walls_collision('right', wallList):
                 self.x -= TILE
@@ -168,7 +186,8 @@ class SpriteObject:
                 self.mpos[0] -= 1
                 self.pos[0] -= TILE
                 self.collision_sprites_update(player)
-                time.sleep(0.2)
+                self.movingBox.play()
+                time.sleep(0.1)
 
             #print("I'm working!")
             #print(distance_to_sprites, dx, dy)

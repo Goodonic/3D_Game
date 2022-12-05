@@ -10,7 +10,8 @@ FPS = 60
 FPS_POS = WIDTH - 65, 5
 COUNT_POS = 65, 5
 TILE = 76
-
+# Название проекта
+PROJECTNAME = "SOCOBAN 3D"
 # Настройки лучей
 FOV = math.pi / 3
 HALF_FOV = FOV / 2
@@ -49,9 +50,13 @@ MAP_POS = (0, HEIGHT - HEIGHT // MAP_SCALE)
 # Настройки мыши
 SENSETIVITY = 0.0009
 
-# Победный экран
-WIN_TEXT_POS = (HALF_WIDTH - 100, HALF_HEIGHT - 100)
-WIN_FONT = pygame.font.Font('Fonts/Button_Font/Elfboyclassic.ttf', 96)
+# Меню
+TEXT_POS = (HALF_WIDTH - 100, HALF_HEIGHT - 100)
+FONT = pygame.font.Font('Fonts/Button_Font/Elfboyclassic.ttf', 96)
+
+# Экран помощи
+HELP_TEXT_POS = (HALF_WIDTH/2, 0)
+HELP_FONT = pygame.font.SysFont('arial', 50)
 # Цвета
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
