@@ -34,3 +34,4 @@ for j, row in enumerate(text_map):
             elif char == '3':
                 mini_map.add((i * MAP_TILE, j * MAP_TILE, '3'))
                 win_map.append((i+1, j+1))
+print(world_map)
